@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model products {
+  id            Int             @id(map: "pk_products_id") @default(autoincrement())
+  name          String
+  description   String
+  width         Float           @db.Real
+  height        Float?          @db.Real
+  color         String
+  category      String
+  photo         String[]
+  discontinued  Boolean?        @default(false)
+  price         Float           @db.Real
+  type          String?
+  order_details order_details[]
+}
+
+model prices {
+  id    Int    @id @default(autoincrement())
+  type  String @unique
+  price Int
+}
+
+model orders {
+  id            Int             @id(map: "pk_orders_id") @default(autoincrement())
+  customer_name String
+  phone         String
+  created_at    String
+  usedelivery   Boolean?        @default(false)
+  city          String?
+  department    String?
+  price         Float           @db.Real
+  comment       String?
+  order_details order_details[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model order_details {
+  id         Int      @id @default(autoincrement())
+  product_id Int
+  order_id   Int
+  height     Float?   @db.Real
+  width      Float    @db.Real
+  isfinished Boolean? @default(false)
+  price      Float    @db.Real
+  orders     orders   @relation(fields: [order_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_details_orders")
+  products   products @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_order_details_products")
+}
+
+model reviews {
+  id          Int    @id(map: "pk_reviews_id") @default(autoincrement())
+  name        String
+  description String
+  raiting     Int
+}
