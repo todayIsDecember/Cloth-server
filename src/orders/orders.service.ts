@@ -58,7 +58,63 @@ export class OrdersService {
 			include: {
 				order_details: {
 					include: {
-						products: true,
+						products: {
+							select: {
+								color: true,
+								name: true,
+								photo: true,
+							},
+						},
+					},
+				},
+			},
+		});
+	}
+
+	// отримати замовлення за id
+	async getOrderById(id: number) {
+		return this.prismaService.orders.findUnique({
+			where: {
+				id: {
+					gte: Number(id),
+					lt: Number(id) + 1,
+				},
+			},
+			include: {
+				order_details: {
+					include: {
+						products: {
+							select: {
+								color: true,
+								name: true,
+								photo: true,
+							},
+						},
+					},
+				},
+			},
+		});
+	}
+
+	// отримати замовлення по імені замовника
+
+	async getOrderByCustomerName(name: string) {
+		return this.prismaService.orders.findMany({
+			where: {
+				customer_name: {
+					contains: name,
+				},
+			},
+			include: {
+				order_details: {
+					include: {
+						products: {
+							select: {
+								color: true,
+								name: true,
+								photo: true,
+							},
+						},
 					},
 				},
 			},

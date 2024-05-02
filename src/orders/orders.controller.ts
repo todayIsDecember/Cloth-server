@@ -46,4 +46,18 @@ export class OrdersController {
 	async getAll() {
 		return this.ordersService.getAllOrders();
 	}
+
+	//GetById
+	@HttpCode(200)
+	@Get('getById/:id')
+	async getById(@Param('id') id: number) {
+		return this.ordersService.getOrderById(id);
+	}
+
+	//Пошук за ім'ям
+	@HttpCode(200)
+	@Post('getByName')
+	async getByName(@Body() { name }: { name: string }) {
+		return this.ordersService.getOrderByCustomerName(name);
+	}
 }
