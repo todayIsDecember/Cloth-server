@@ -75,10 +75,7 @@ export class OrdersService {
 	async getOrderById(id: number) {
 		return this.prismaService.orders.findUnique({
 			where: {
-				id: {
-					gte: Number(id),
-					lt: Number(id) + 1,
-				},
+				id: Number(id),
 			},
 			include: {
 				order_details: {
