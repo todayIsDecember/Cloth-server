@@ -80,8 +80,6 @@ export class ProductsService {
 			data: dto,
 		});
 	}
-
-	//видалити продукт
 	async delete(id: number) {
 		return this.prismaService.products.delete({
 			where: { id: Number(id) },
