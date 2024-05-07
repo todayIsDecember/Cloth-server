@@ -28,7 +28,11 @@ export class ProductsService {
 
 	//отримати топ 3 продукти
 	async getTopThree() {
-		return this.prismaService.products.findMany({ take: 3, where: { discontinued: false } });
+		return this.prismaService.products.findMany({
+			take: 3,
+			where: { discontinued: false },
+			orderBy: { id: 'asc' },
+		});
 	}
 
 	//отримати продукти за кольором
@@ -52,6 +56,7 @@ export class ProductsService {
 			.findMany({
 				where: { type: type, discontinued: false },
 				select: { color: true },
+				distinct: ['color'],
 			})
 			.then((res) => {
 				res.forEach((el) => {
