@@ -19,11 +19,16 @@ export class ProductsService {
 
 	//отримати всі продукти
 	async getAll() {
-		return this.prismaService.products.findMany({ where: { discontinued: false } });
+		return this.prismaService.products.findMany({
+			where: { discontinued: false },
+			orderBy: { id: 'asc' },
+		});
 	}
 
 	async allWithDiscontinued() {
-		return this.prismaService.products.findMany({});
+		return this.prismaService.products.findMany({
+			orderBy: { id: 'asc' },
+		});
 	}
 
 	//отримати топ 3 продукти
