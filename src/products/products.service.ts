@@ -68,9 +68,7 @@ export class ProductsService {
 
 	//отримати продукт за id
 	async getById(id: number) {
-		return this.prismaService.products.findUnique({
-			where: { id: Number(id) },
-		});
+		return this.prismaService.products.findFirst({ where: { id: Number(id) } });
 	}
 
 	//змінити дані продукта
