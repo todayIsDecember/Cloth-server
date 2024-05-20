@@ -37,7 +37,7 @@ export class OrdersController {
 		const messageTemplate = message(order);
 		await this.telegramService.sendMessage(messageTemplate);
 		await this.twilioSerive.sendSMS(generateNumber(order.phone), messageTwilio(order));
-		return { success: true };
+		return { success: true, order_info: order };
 	}
 
 	//GetAll
