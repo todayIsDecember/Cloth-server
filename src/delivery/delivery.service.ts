@@ -40,6 +40,8 @@ export class DeliveryService {
 				methodProperties: {
 					CityName,
 					FindByString: keywords,
+					page: 1,
+					limit: 10
 				},
 			}),
 		);
