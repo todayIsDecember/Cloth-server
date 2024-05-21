@@ -19,6 +19,7 @@ model products {
   discontinued  Boolean?        @default(false)
   price         Float           @db.Real
   type          String?
+  value         Json?
   order_details order_details[]
 }
 

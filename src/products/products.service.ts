@@ -11,7 +11,6 @@ export class ProductsService {
 	async create(dto: CreateProductDto) {
 		return this.prismaService.products.create({
 			data: {
-				price: dto.type,
 				...dto,
 			},
 		});

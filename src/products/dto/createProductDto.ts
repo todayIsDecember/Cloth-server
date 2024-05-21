@@ -1,4 +1,5 @@
 import { IsArray, IsNumber, IsString, max } from 'class-validator';
+import { IsArrayOfStringArrays } from './IsArrayOfStringArrays';
 
 export class CreateProductDto {
 	@IsString()
@@ -27,4 +28,9 @@ export class CreateProductDto {
 
 	@IsNumber()
 	price: number;
+
+	@IsArrayOfStringArrays({
+		message: 'значення повинно бути масив масивів рядків',
+	})
+	value: any;
 }
